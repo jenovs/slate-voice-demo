@@ -1,25 +1,56 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Editor } from 'slate-react';
+import { Value } from 'slate';
+
 import './App.css';
 
+import Speech from './Speech';
+
+const createValue = text =>
+  Value.fromJSON({
+    document: {
+      nodes: [
+        {
+          object: 'block',
+          type: 'paragraph',
+          nodes: [
+            {
+              object: 'text',
+              leaves: [
+                {
+                  text,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  });
+
 class App extends Component {
+  state = {
+    value: createValue('Placeholder text'),
+  };
+
+  onChange = ({ value }) => {
+    this.setState({ value });
+  };
+
+  handleTranscript = arg => {
+    if (!arg) return;
+    this.setState(() => ({
+      value: createValue(arg),
+    }));
+  };
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <div className="App-slate">
+          <Editor value={this.state.value} onChange={this.onChange} />
+        </div>
+        <Speech onChange={this.handleTranscript} />
       </div>
     );
   }

@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "immutable": "^3.8.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts": "2.0.4"
+    "react-scripts": "2.0.4",
+    "react-speech-recognition": "^1.0.7",
+    "slate": "^0.42.2",
+    "slate-react": "^0.19.3"
   },
   "scripts": {
     "start": "react-scripts start",
